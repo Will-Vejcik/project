@@ -1,8 +1,12 @@
 import pandas as pd
-data=https://data.cityofchicago.org/resource/sxs8-h27x.csv
-read_data=pd.read_csv(data)
+from sodapy import Socrata
 
-target=read_data.traffic
-copy_full_data = read_data.copy()
-copy_full_data.drop(columns= 'traffic')
+client = Socrata('data.cityofchicago.org',
+                  "PlJxW1GibM3jpCcA5IkoD7JQs",
+                  username="wvejcik@gmail.com",
+                  password="Platypus2017!")
+client.timeout = 60
+results = client.get("sxs8-h27x", limit=100)
+results_df = pd.DataFrame.from_records(results)
+print(results_df.head())
 
